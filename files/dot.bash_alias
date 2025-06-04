@@ -1,0 +1,19 @@
+# Bash user aliases
+
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+
+alias ls='ls --color'
+alias lls='ls -hl --color'
+alias lla='ls -ahl --color'
+
+alias h=history
+alias hgrep='history|grep'
+
+#unalias ll 2>&1 /dev/null
+
+function ll()
+{
+    /bin/ls -lh --color=never "$@" 2> /dev/null | /usr/games/lolcat
+}

@@ -1,0 +1,11 @@
+#!/bin/bash
+[ $UID -eq 0 ] || { echo "Must be root" ; exit 1 ; }
+export DEBIAN_FRONTEND=noninteractive
+apt update
+apt upgrade
+apt full-upgrade
+apt autoremove
+apt autoclean
+export DEBIAN_FRONTEND=
+[ -e /run/reboot-required ] && { echo 'REBOOT REQUIRED' ; }
+exit 0

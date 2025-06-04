@@ -1,0 +1,16 @@
+---
+# Update Packages on RHEL / CentOS
+- hosts: 
+    localhost:
+      vars:
+        ansible_connection: local
+        ansible_python_interpreter: "{{ansible_playbook_python}}"
+  become: yes
+  tasks:
+  - name: Update Packages
+    ansible.builtin.dnf:
+      name: '*'
+      state: latest
+  - name: Reboot
+    ansible.builtin.reboot:
+

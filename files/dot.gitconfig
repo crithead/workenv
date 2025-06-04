@@ -1,0 +1,82 @@
+[user]
+    name = User Name
+    email = user.name@crithead.com
+[alias]
+	st = status
+	br = branch
+	co = checkout
+	re = remote
+	ig = ls-files -o -i --exclude-standard
+[branch]
+	sort = -committerdate
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[column]
+	ui = auto
+[commit]
+	verbose = true
+[core]
+;	autocrlf = input
+;	eol = native
+;	whitespace = fix, -indent-with-non-tab, tab-in-indent, trailing-space, cr-at-eol
+	excludesfile = ~/.gitignore
+;	fsmonitor = true
+;	untrackedCache = true
+[credential]
+	helper = store
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	external = ~/bin/git-diff
+	mnemonicPrefix = true
+	renames = true
+	tool = meld
+[difftool]
+	prompt = false
+	tool = meld
+[difftool]
+	prompt = false
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[help]
+	autocorrect = false
+[init]
+	defaultBranch = master
+[merge]
+	conflictstyle= zdiff3
+[mergetool]
+	prompt = false
+[pull]
+	rebase = false
+[push]
+	default = simple
+	AutoSetupRemote = true
+	followTags = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[rerere]
+;	enabled = true
+;	autoupdate = true
+[safe]
+'	directory = /work/rust
+[tag]
+	sort = version:refname
+
