@@ -1,0 +1,14 @@
+---
+# Configure a new user environment for the user running the playbook.
+- hosts: all
+  become: yes
+  tasks:
+  - import_tasks: user-tasks.yml
+      vars:
+        this_user: user
+        this_group: user
+  - import_tasks: root-tasks.yml
+      vars:
+        this_user: user
+        this_group: user
+  - import_tasks: install-packages.yml

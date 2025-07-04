@@ -1,6 +1,6 @@
 ---
 # Install Packages on RHEL / CentOS
-- hosts: 
+- hosts:
     localhost:
       vars:
         ansible_connection: local
@@ -16,28 +16,30 @@
       name:
         - epel-release
       state: latest
-  - name: Install packages
+  - name: Install command line tools
     ansible.builtin.dnf:
       name:
+        - clang-tools-extra
         - cmake
+        - git
         - htop
+        - minicom
+        - nmap
         - rsync
+        - sed
         - tmux
         - vim
+        - xxd
+      state: latest
+  - name: Install graphical tools
+    ansible.builtin.dnf:
+      name:
+        - gnome-tweaks
+        - setools-gui
+        - vim-X11
       state: latest
   - name: Remove packages
     ansible.builtin.dnf:
       name:
         - nano
       state: absent
-  - name: Install extra development packages
-    ansible.builtin.dnf:
-      name:
-        - clang-tools-extra
-        - git
-        - minicom
-        - nmap
-        - sed
-        - xxd
-      state: latest
-

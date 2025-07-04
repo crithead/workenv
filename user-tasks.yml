@@ -1,0 +1,97 @@
+# Tasks to configure a new user environment.
+- name: Copy bash prompt file
+  ansible.builtin.copy:
+    src: files/dot.bash_prompt
+    dest: "/home/{{ this_user }}/.bash_prompt"
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0664'
+
+- name: Copy bash alias file
+  ansible.builtin.copy:
+    src: files/dot.bash_alias
+    dest: "/home/{{ this_user }}/.bash_alias"
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0664'
+
+- name: Copy tmux configuration file
+  ansible.builtin.copy:
+    src: files/dot.tmux.conf
+    dest: "/home/{{ this_user }}/.tmux.conf"
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0664'
+
+- name: Copy gitconfig
+  ansible.builtin.copy:
+    src: files/dot.gitconfig
+    dest: "/home/{{ this_user }}/.gitconfig"
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0664'
+
+- name: Copy clang-format
+  ansible.builtin.copy:
+    src: files/dot.clang-format
+    dest: "/home/{{ this_user }}/.clang-format"
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0664'
+
+- name: Copy Vim configuration file
+  ansible.builtin.copy:
+    src: files/dot.vimrc
+    dest: "/home/{{ this_user }}/.vimrc"
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0664'
+
+- name: Create User's Vim Colors directory
+  ansible.builtin.file:
+    path: "/home/{{ this_user }}/.vim/colors"
+    state: directory
+    mode: '0775'
+
+- name: Copy Vim color scheme file
+  ansible.builtin.copy:
+    src: files/dot.vim-colors-yk.vim
+    dest: "/home/{{ this_user }}/.vim/colors/yk.vim"
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0664'
+
+- name: Create "{{ this_user }}"'s local
+  ansible.builtin.file:
+    path: "/home/{{ this_user }}/.local"
+    state: directory
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0775'
+
+- name: Create "{{ this_user }}"'s TMPDIR
+  ansible.builtin.file:
+    path: "/home/{{ this_user }}/.local/tmp"
+    state: directory
+    owner: "{{ this_user }}"
+    group: "{{ this_group }}"
+    mode: '0775'
+
+- name: Add TMPDIR to bashrc
+  ansible.builtin.lineinfile:
+    path: "/home/{{ this_user }}/.bashrc"
+    state: present
+    line: export TMPDIR=~/.local/tmp
+
+- name: Source alias file in bashrc
+  ansible.builtin.lineinfile:
+    path: "/home/{{ this_user }}/.bashrc"
+    state: present
+    line: source ~/.bash_alias
+
+- name: Source prompt in bashrc
+  ansible.builtin.lineinfile:
+    path: "/home/{{ this_user }}/.bashrc"
+    state: present
+    insertafter: EOF
+    line: source ~/.bash_prompt

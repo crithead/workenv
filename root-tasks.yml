@@ -1,0 +1,57 @@
+# Tasks to set up the root user
+- name: Copy bash prompt file
+  ansible.builtin.copy:
+    src: files/dot.bash_prompt
+    dest: /root/.bash_prompt"
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Copy bash alias file
+  ansible.builtin.copy:
+    src: files/dot.bash_alias
+    dest: /root/.bash_alias
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Copy Vim configuration file
+  ansible.builtin.copy:
+    src: files/dot.vimrc
+    dest: /root/.vimrc
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Create User's Vim Colors directory
+  ansible.builtin.file:
+    path: "/root/.vim/colors"
+    state: directory
+    mode: '0750'
+
+- name: Copy Vim color scheme file
+  ansible.builtin.copy:
+    src: files/dot.vim-colors-yk.vim
+    dest: /root/.vim/colors/yk.vim
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Add TMPDIR to bashrc
+  ansible.builtin.lineinfile:
+    path: /root/.bashrc
+    state: present
+    line: export TMPDIR=/tmp
+
+- name: Source alias file in bashrc
+  ansible.builtin.lineinfile:
+    path: /root/.bashrc
+    state: present
+    line: source ~/.bash_alias
+
+- name: Source prompt in bashrc
+  ansible.builtin.lineinfile:
+    path: /root/.bashrc
+    state: present
+    insertafter: EOF
+    line: source ~/.bash_prompt
